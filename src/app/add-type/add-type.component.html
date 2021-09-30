@@ -1,0 +1,61 @@
+<h3>Add New Filetype</h3>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4" >
+    <div [hidden]="submitted" style="width: 400px;">
+      <form [formGroup]="filetypesaveform" #savefiletype (ngSubmit)="saveFiletype(saveFiletype)">
+          <div class="form-group">
+              <label for="name">Filetype Name</label>
+              <input type="text" class="form-control"  formControlName="filetype_name" data-toggle="tooltip" 
+                 data-placement="right" title="Enter Filetype Name" >
+              <div class="alert alert-danger" *ngIf = "(FiletypeName.touched) && (FiletypeName.invalid)" 
+                style="margin-top: 5px;">
+                  <span *ngIf="FiletypeName.errors.required">Filetype Name is Required</span>
+                    <span *ngIf = "FiletypeName.errors.minlength"> 
+                        MinLength Error 
+                    </span>                   
+                </div>
+          </div>
+  
+          <div class="form-group">
+              <label for="name">Required Fields</label>
+              <input type="text" class="form-control" formControlName="required_fields" 
+                data-toggle="tooltip" data-placement="right" title="Enter required fields">
+                <div class="alert alert-danger" *ngIf = "(RequiredFields.touched) && (RequiredFields.invalid)" 
+                style="margin-top: 5px;">
+                  <span *ngIf="RequiredFields.errors.required">Required Fields is Required</span>
+                    <span *ngIf = "RequiredFields.errors.email"> 
+                        Invalid Required Fields
+                    </span>                   
+                </div>
+          </div>
+  
+          <div class="form-group">
+              <label for="branch">Data Type</label>
+                <select class="form-control" formControlName="data_type" data-toggle="tooltip" 
+                      data-placement="right" title="Select filetype datatype">
+                    <option value="null">--Select Branch--</option>
+                  <option value="text">text</option>
+                  <option value="numerical">numerical</option>
+                  <option value="alpha-numerical">alpha-numerical</option>
+                </select>
+          </div>
+  
+          <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+  </div>
+  </div>
+  <div class="col-sm-4"></div>
+</div>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+      <div [hidden]="!submitted">
+         <h4>Filetype Added SuccessFully!</h4>
+         <button (click)="addFiletypeForm()" class='btn btn-primary'>Add More Filetype</button>
+      </div>      
+  </div>
+  <div class="col-sm-4"></div>
+</div>
+
+

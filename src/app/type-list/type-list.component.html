@@ -1,0 +1,100 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h1 style="text-align: center">File Types List</h1><br>
+		<div class="row" [hidden]="!deleteMessage">
+
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div class="alert alert-info alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Filetype Data Deleted</strong>
+				</div>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+	</div>
+
+
+	<div class="panel-body">
+		<table class="table table-hover table-sm" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+			<thead class="thead-light">
+				<tr>
+					<th>Filetype</th>
+					<th>Required Fields</th>
+					<th>Data Type</th>
+					<th>Action</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let filetype of filetypes ">
+					<td>{{filetype.filetype_name}}</td>
+					<td>{{filetype.required_fields}}</td>
+					<td>{{filetype.data_type}}</td>
+
+					<td><button (click)="deleteFiletype(filetype.filetype_id)" class='btn btn-primary'><i
+								class="fa fa-futboll-0">Delete</i></button>&nbsp;
+						<button (click)="updateFiletype(filetype.filetype_id)" class='btn btn-info' data-toggle="modal"
+							data-target="#myModal">Update</button>
+					</td>
+				</tr>
+			</tbody><br>
+		</table>
+	</div>
+</div>
+
+<div class="modal" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form [formGroup]="filetypeupdateform" #updstu (ngSubmit)="updateFtp(upd)">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title" style="text-align: center">Update Filetype</h4>
+
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body" *ngFor="let filetype of filetypelist ">
+					<div [hidden]="isupdated">
+
+						<input type="hidden" class="form-control" formControlName="filetype_id"
+							[(ngModel)]="filetype.filetype_id">
+						<div class="form-group">
+							<label for="name">Filetype Name</label>
+							<input type="text" class="form-control" formControlName="filetype_name"
+								[(ngModel)]="filetype.filetype_name">
+						</div>
+
+						<div class="form-group">
+							<label for="name">Required Fields</label>
+							<input type="text" class="form-control" formControlName="required_fields"
+								[(ngModel)]="filetype.required_fields">
+						</div>
+
+						<div class="form-group">
+							<label for="branch">Data Type</label>
+							<select class="form-control" formControlName="data_type" required>
+								<option value="text" [selected]="'text' == filetype.data_type">text</option>
+								<option value="numerical" [selected]="'numerical' == filetype.data_type">numerical
+								</option>
+								<option value="alpha-numerical" [selected]="'alpha-numerical' == filetype.data_type">
+									alpha-numerical</option>
+							</select>
+						</div>
+
+						<div [hidden]="!isupdated">
+							<h4>Filetype Detail Updated!</h4>
+						</div>
+
+					</div>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" [hidden]="isupdated">Update</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"
+						(click)="changeisUpdate()">Close</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
